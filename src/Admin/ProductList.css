@@ -1,0 +1,125 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Apply the standard font to the body */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f4f4f9, #e0e0e0); /* Gradient background for the body */
+}
+
+.product-list-container {
+    padding: 8px; /* Further reduced padding */
+}
+
+.product-list-header {
+    font-size: 18px; /* Slightly smaller font size */
+    margin-bottom: 12px; /* Further reduced margin */
+    color: #333; /* Darker color for headers */
+}
+
+.product-list-actions {
+    margin-bottom: 12px; /* Further reduced margin */
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #ffffff; /* White background for the table */
+}
+
+.product-table-header {
+    background: linear-gradient(135deg, #487bb1, #052c56); /* Gradient for header */
+    color: #ffffff; /* White text for better contrast */
+    font-weight: bold;
+}
+
+.product-table-header th {
+    padding: 6px; /* Further reduced padding */
+    border: 1px solid #ddd;
+    font-size: 12px; /* Smaller font size */
+}
+
+.product-table-row {
+    background-color: #fff;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.product-table-row:hover {
+    background-color: #f1f1f1; /* Light gray background on hover */
+}
+
+.product-table-row:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row color */
+}
+
+.product-table-row td {
+    padding: 6px; /* Further reduced padding */
+    border: 1px solid #ddd;
+    font-size: 12px; /* Smaller font size */
+    color: #555; /* Slightly darker text for readability */
+}
+
+.product-image {
+    width: 35px; /* Further decreased width */
+    height: 35px; /* Further decreased height */
+    object-fit: cover;
+}
+
+.no-image {
+    width: 35px; /* Further decreased width */
+    height: 35px; /* Further decreased height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0; /* Light gray background for no image */
+    border: 1px dashed #ccc;
+    color: #888;
+}
+
+.in-stock {
+    color: #28a745; /* Green for in stock */
+    font-weight: bold; /* Bold text */
+}
+
+.out-of-stock {
+    color: #dc3545; /* Red for out of stock */
+    font-weight: bold; /* Bold text */
+}
+
+.edit-btn,
+.delete-btn {
+    margin: 0 2px; /* Further reduced margin */
+    font-size: 10px; /* Smaller font size */
+    padding: 4px 6px; /* Further reduced padding */
+    border: none;
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.edit-btn {
+    background: linear-gradient(135deg, #7ab0b5, #04454e); /* Gradient for edit button */
+    color: white; /* White text */
+}
+
+.edit-btn:hover {
+    background: linear-gradient(135deg, #96decb, #062e0a); /* Darker gradient on hover */
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #dc3545, #c82333); /* Gradient for delete button */
+    color: white; /* White text */
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #c82333, #a71c1c); /* Darker gradient on hover */
+}
+.variant-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin: 5px;
+}
+
+
+.variant-table{
+    width: 100%;
+}

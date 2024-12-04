@@ -1,0 +1,10 @@
+@media (max-width: 992px) {
+    .nav-link dropdown-toggle{
+
+    }
+
+    /* Optional: Adjust the font size of the toggler button */
+    .navbar-toggler-icon {
+        font-size: 20px; /* This can be adjusted for the hamburger icon */
+    }
+}

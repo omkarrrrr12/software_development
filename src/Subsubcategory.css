@@ -1,0 +1,103 @@
+/* Container for the entire page */
+.subsubcategory-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Title for the page */
+.subsubcategory-page h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* List of subsubcategories */
+.subsubcategories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Each subsubcategory item */
+.subsubcategory-item {
+    width: calc(33% - 20px); /* 3 items per row with space */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    background-color: #f9f9f9;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+/* Subsubcategory item on hover */
+.subsubcategory-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Image inside subsubcategory item */
+.subsubcategory-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Subsubcategory name */
+.subsubcategory-item p {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+/* Section for products */
+.products-list {
+    margin-top: 30px;
+}
+
+/* Product item container */
+.product-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+/* Product image */
+.product-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+/* Product details */
+.product-details {
+    max-width: 600px;
+}
+
+/* Product name */
+.product-details h4 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+/* Product description */
+.product-details p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Product price */
+.product-details strong {
+    font-size: 16px;
+    color: #27ae60; /* Green color for price */
+}

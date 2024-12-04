@@ -1,0 +1,272 @@
+/* Header.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    background-color: #03012da7;
+    padding: 15px 20px;
+    color: #fff;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .search-bar {
+    display: flex;
+    flex: 1;
+    max-width: 600px;
+    margin-right: 800px;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .search-bar button {
+    padding: 10px 15px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+  
+  .search-bar button:hover {
+    background-color: #777;
+  }
+  
+  /* Category bar */
+  .category-bar {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .category-bar ul {
+    display: flex;
+    list-style: none;
+  }
+  
+  .category-bar a {
+    color: #fff;
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+  }
+  
+  .category {
+    position: relative;
+  }
+  
+  .category:hover > a {
+    background-color: #555;
+  }
+  
+  /* Subcategory Menu Styling */
+  .subcategory-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    border: 1px solid #ccc;
+    z-index: 1;
+    display: none;
+  }
+  
+  .category:hover .subcategory-menu {
+    display: block;
+  }
+  
+  .subcategory-menu ul {
+    list-style: none;
+    padding: 10px 0;
+  }
+  
+  .subcategory-menu li {
+    padding: 5px 0;
+  }
+  
+  .subcategory-menu a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .subcategory-menu a:hover {
+    text-decoration: underline;
+  }
+  
+  .subcategory-image img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .has-sub-subcategory > ul {
+    display: none;
+  }
+  
+  .has-sub-subcategory:hover > .sub-subcategory {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #e6e6e6;
+    min-width: 150px;
+  }
+  
+  .sub-subcategory a {
+    color: #333;
+    padding: 5px;
+    display: block;
+    text-decoration: none;
+  }
+  
+  .sub-subcategory a:hover {
+    background-color: #ddd;
+  }
+  
+  /* Hamburger menu for mobile view */
+  .hamburger {
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  .hamburger-icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Responsive Design */
+  
+  /* Display hamburger only below 700px */
+  @media (max-width: 700px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .search-bar {
+      max-width: 90%;
+      margin: 10px 0;
+    }
+  
+    .category-bar {
+      display: none;
+    }
+  
+    .category-bar.open {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #333;
+      color: #fff;
+      z-index: 1000;
+      overflow-y: auto;
+      padding-top: 20px;
+      transition: transform 0.3s ease;
+    }
+  
+    .category-bar ul {
+      flex-direction: column;
+      padding-left: 0;
+    }
+  
+    .category-bar ul li {
+      width: 100%;
+      text-align: left;
+      padding: 10px 20px;
+    }
+  
+    .category-bar a {
+      color: #fff;
+      padding: 10px;
+      display: block;
+    }
+  
+    .subcategory-menu {
+      position: static;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .logo {
+      font-size: 20px;
+    }
+  
+    .search-bar input {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Extra Small Screen (300px) */
+  @media (max-width: 300px) {
+    .logo {
+      font-size: 16px;
+    }
+  
+    .search-bar {
+      flex-direction: column;
+      width: 100%;
+      margin: 5px 0;
+    }
+  
+    .search-bar input,
+    .search-bar button {
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+  
+    .category-bar ul {
+      flex-direction: column;
+    }
+  
+    .category-bar a {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+  
+    .subcategory-menu {
+      min-width: 150px;
+      padding: 5px;
+    }
+  
+    .hamburger {
+      font-size: 20px;
+    }
+  }
+  
