@@ -5,6 +5,7 @@ import Category from './Category';
 import SubcategoryManager from './Subcategory';
 import SubsubcategoryManager from './Subsubcategory';
 import { useAdminAuth } from '../contexts/AdminAuthContext'; 
+import CategorySelection from './CategorySelection';
 
 const AdminPanel = () => {
     const { adminLogout } = useAdminAuth(); // Access the logout function
@@ -27,6 +28,9 @@ const AdminPanel = () => {
                     <li className="nav-item">
                         <Link to="/admin/subsubcategories" className="nav-link text-white">Subsubcategories</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to="/admin/selectedcategories" className="nav-link text-white">Selectedcategories</Link>
+                    </li>
                     {/* Add Logout button in the navigation */}
                     <li className="nav-item">
                         <button onClick={adminLogout} className="btn btn-danger w-50">Logout</button>
@@ -41,6 +45,7 @@ const AdminPanel = () => {
                     <Route path="/categories" element={<Category />} />
                     <Route path="/subcategories" element={<SubcategoryManager />} />
                     <Route path="/subsubcategories" element={<SubsubcategoryManager />} />
+                    <Route path="/selectedcategories" element={<CategorySelection />} />
                 </Routes>
             </div>
         </div>

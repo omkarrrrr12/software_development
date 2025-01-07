@@ -4,7 +4,7 @@ import axios from 'axios';
 const UpdateProductForm = ({ productData, onCancel, fetchProducts, categories,subcategories, subsubcategories }) => {
     const [product, setProduct] = useState({
         name: '',
-        productCode: '',
+        // productCode: '',
         price: '',
         taxAmount: '',
         hsnCode: '',
@@ -126,7 +126,7 @@ const UpdateProductForm = ({ productData, onCancel, fetchProducts, categories,su
                     />
                 </div>
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label htmlFor="productCode" className="form-label">Product Code</label>
                     <input
                         type="text"
@@ -137,7 +137,7 @@ const UpdateProductForm = ({ productData, onCancel, fetchProducts, categories,su
                         onChange={handleChange}
                         required
                     />
-                </div>
+                </div> */}
 
                 <div className="mb-3">
                     <label htmlFor="taxAmount" className="form-label">Tax Amount</label>

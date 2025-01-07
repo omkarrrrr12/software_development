@@ -57,7 +57,31 @@ function TopCategories() {
 
     return (
         <div className="container mt-5" style={{ backgroundColor: 'white', position: 'relative' }}>
-            <h2 className="text-center mb-4">Top Categories</h2>
+            <h2
+    className="mb-4"
+    
+    style={{
+        cursor: 'pointer',
+        fontFamily: "'Poppins', sans-serif", // Modern font
+        fontWeight: '600',
+        fontSize: '2rem',
+        // background: 'linear-gradient(to right, #ff7e5f,rgb(10, 16, 25))', // Gradient text
+        WebkitBackgroundClip: 'text',
+         
+        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)', // Subtle shadow
+        transition: 'transform 0.3s ease, text-shadow 0.3s ease', // Smooth animation
+    }}
+    onMouseEnter={(e) => {
+        e.target.style.transform = 'scale(1.05)'; // Slight zoom on hover
+        e.target.style.textShadow = '2px 2px 6px rgba(0, 0, 0, 0.2)'; // Stronger shadow on hover
+    }}
+    onMouseLeave={(e) => {
+        e.target.style.transform = 'scale(1)'; // Reset zoom
+        e.target.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.1)'; // Reset shadow
+    }}
+>
+    Top Categories 
+</h2>
 
             {/* Custom Navigation Buttons */}
             <button

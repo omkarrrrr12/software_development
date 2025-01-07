@@ -1,72 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const CustomerProductList = () => {
-    const [products, setProducts] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const navigate = useNavigate();
-    const { categoryId, subcategoryId, subsubcategoryId } = useParams();
+const ProductDisplay = () => {
+    const [products, setProducts] = useState([]); // Initialize as empty array
+    const [categoryName, setCategoryName] = useState(''); // State to store the category name
+    const [categoryImage, setCategoryImage] = useState(''); // State to store the category image (Base64)
+    const [loading, setLoading] = useState(true); // State to track loading status
+    const navigate = useNavigate(); // Hook for programmatically navigating between routes
 
     useEffect(() => {
-        fetchProducts();
-    }, [subcategoryId, subsubcategoryId]); // Re-fetch products when subsubcategoryId or subcategoryId changes
+        // Fetch the selected category data (categoryId, categoryName, and categoryImage)
+        axios
+            .get('http://localhost:8080/api/selected-category')
+            .then(response => {
+                const { categoryId, categoryName, categoryImage } = response.data; // Destructure response
+                setCategoryName(categoryName); // Set category name
+                setCategoryImage(categoryImage); // Set category image
 
-    const fetchProducts = async () => {
-        try {
-            const params = {};
-            if (subcategoryId) params.subcategoryId = subcategoryId;
-            if (subsubcategoryId) params.subsubcategoryId = subsubcategoryId;
+                // Fetch products based on the selected category ID
+                return axios.get(
+                    `http://localhost:8080/api/products/selected-category?categoryId=${categoryId}`
+                );
+            })
+            .then(productsResponse => {
+                setProducts(productsResponse.data || []); // Set products, default to empty array if undefined
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    }, []); // Empty dependency array to run only on mount
 
-            const response = await axios.get('http://localhost:8080/api/products/filter', { params });
-            console.log('Fetched products:', response.data);
-            setProducts(response.data);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
-
-    // Filter products based on search term
-    const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const handleProductClick = (productId) => {
-        navigate(`/product/${productId}/category/${categoryId}/subcategory/${subcategoryId}`);
-    };
+    if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="container my-5" style={{ backgroundColor: 'white', color: 'white', minHeight: '100vh' }}>
-            <button onClick={() => navigate(-1)} className="btn btn-secondary mb-3" style={{marginBottom:'0px'}}>
-                &larr; Back
-            </button>
+        <div
+            className="container my-5"
+            style={{ backgroundColor: 'white', color: 'black', minHeight: '70vh' }}
+        >
+           
 
-            <h2 className="mb-4">Available Products</h2>
-
-            <div className="mb-4">
-                <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="form-control"
-                />
+            {/* Display the selected category image and name */}
+            <div className="d-flex align-items-center mb-4">
+                {categoryImage && (
+                    <img
+                        src={`data:image/jpeg;base64,${categoryImage}`}
+                        alt={categoryName}
+                        style={{
+                            height: '100px',
+                            width: '100px',
+                            objectFit: 'cover',
+                            borderRadius: '50%',
+                            marginRight: '1rem',
+                        }}
+                    />
+                )}
+                <h2>Products in {categoryName}</h2>
             </div>
 
-            {/* Updated responsive grid */}
+            {/* Product Grid */}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gx-3 gy-3">
-                {filteredProducts.length > 0 ? (
-                    filteredProducts.map((product) => {
-                        const firstVariant = product.variants && product.variants[0];
+                {products.length > 0 ? (
+                    products.map(product => {
+                        const firstVariant =
+                            product.variants && product.variants[0]; // Display the first variant image and price
 
                         return (
                             <div key={product.id} className="col px-0">
                                 <div
                                     className="card shadow-sm h-100"
-                                    onClick={() => handleProductClick(product.id)}
+                                    onClick={() => navigate(`/product/${product.id}`)} // Navigate to product details page
                                     style={{
                                         cursor: 'pointer',
                                         borderRadius: '0',
+                                        
                                         height: 'auto',
                                         overflow: 'hidden',
                                         width: '170px',
@@ -74,12 +83,17 @@ const CustomerProductList = () => {
                                     }}
                                 >
                                     {/* Subcategory name */}
-                                    <p className="card-text" style={{ fontSize: '0.875rem', marginBottom: '0.5rem' }}>
+                                    <p
+                                        className="card-text"
+                                        style={{ fontSize: '0.875rem', marginBottom: '0.5rem' }}
+                                    >
                                         {product.subcategory ? product.subcategory.name : 'N/A'}
                                     </p>
 
                                     {/* Product Image */}
-                                    {firstVariant && firstVariant.images && firstVariant.images.length > 0 ? (
+                                    {firstVariant &&
+                                    firstVariant.images &&
+                                    firstVariant.images.length > 0 ? (
                                         <div className="image-container">
                                             <img
                                                 src={`data:image/jpeg;base64,${firstVariant.images[0]}`}
@@ -113,6 +127,7 @@ const CustomerProductList = () => {
                                         <h5
                                             className="card-title"
                                             style={{
+                                                
                                                 fontSize: '0.7rem',
                                                 fontWeight: 'bold',
                                                 minHeight: '50px',
@@ -136,8 +151,12 @@ const CustomerProductList = () => {
                                             ₹{firstVariant ? firstVariant.price : 'N/A'}
                                         </span>
                                         {/* <div className="d-flex justify-content-between">
-                                            <button className="btn btn-outline-primary btn-sm">Wishlist</button>
-                                            <button className="btn btn-outline-secondary btn-sm">Compare</button>
+                                            <button className="btn btn-outline-primary btn-sm">
+                                                Wishlist
+                                            </button>
+                                            <button className="btn btn-outline-secondary btn-sm">
+                                                Compare
+                                            </button>
                                         </div> */}
                                     </div>
                                 </div>
@@ -150,25 +169,10 @@ const CustomerProductList = () => {
                     </div>
                 )}
             </div>
-
-            {/* Custom media query for widths between 430px and 575px */}
-            <style >{`
-                    @media (min-width: 360px) and (max-width: 575px) {
-                        .row {
-                            display: grid;
-                            grid-template-columns: repeat(2, 1fr);
-                            gap: 0rem;
-                        }
-                    }
-                        
-    /* Adjust font size of dropdown options */
-    .form-select option {
-    width: 25vw;
-        font-size: 2.3vw; /* Dynamically resize font size based on screen width */
-    }
-                `}</style>
         </div>
     );
 };
 
-export default CustomerProductList;
+export default ProductDisplay;
+
+

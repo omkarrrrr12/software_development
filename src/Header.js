@@ -1,21 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Header.css";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSubcategory, setActiveSubcategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const menuRef = useRef(null);
+  const navigate = useNavigate();
 
+  // Fetch categories from backend
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/categories");
-      console.log("Fetched categories:", response.data);
-      setCategories(response.data);  // Assuming response.data is an array of categories
+      setCategories(response.data); // Assuming response.data is an array of categories
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -25,27 +22,26 @@ const Header = () => {
     fetchCategories();
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchQuery);
+  // Handle search query change and navigation
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (query.trim()) {
+      navigate(`/product?search=${query}`);
+    } else {
+      navigate(`/`); // Navigate to home if search query is cleared
+    }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-        setActiveSubcategory(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const toggleSubcategory = (index) => {
-    setActiveSubcategory(activeSubcategory === index ? null : index);
+  // Handle search submission
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) {
+      alert("Please enter a search term");
+      return;
+    }
+    navigate(`/product?search=${searchQuery}`); // Redirect to product list with search query
   };
 
   return (
@@ -57,7 +53,7 @@ const Header = () => {
           type="text"
           placeholder="Search products..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={handleSearchChange}
         />
         <button type="submit">Search</button>
       </form>
@@ -66,10 +62,6 @@ const Header = () => {
         <Link to="/login" className="login-btn">Login/Register</Link>
         <Link to="/cart" className="cart-btn">🛒</Link>
       </div>
-
-     
-
-
     </header>
   );
 };

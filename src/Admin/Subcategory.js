@@ -112,7 +112,7 @@ const SubcategoryManager = () => {
   }, []);
 
   return (
-    <div className="container my-0" style={{ width: '500px' }}>
+    <div className="container my-0" style={{ width: '1000px' }}>
       <h3 className="mb-1 text-center">Subcategory Manager</h3>
       {/* Add/Edit Form */}
       <div className="card p-0">

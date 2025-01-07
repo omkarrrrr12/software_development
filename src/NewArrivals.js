@@ -48,7 +48,7 @@ const NewArrivalProductList = () => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: Math.min(5, filteredProducts.length),
+                    slidesToShow: Math.min(4, filteredProducts.length),
                     slidesToScroll: 1,
                 },
             },
@@ -60,7 +60,7 @@ const NewArrivalProductList = () => {
                 },
             },
             {
-                breakpoint: 430,
+                breakpoint: 530,
                 settings: {
                     slidesToShow: Math.min(2, filteredProducts.length),
                     slidesToScroll: 1,
@@ -88,10 +88,33 @@ const NewArrivalProductList = () => {
     };
 
     return (
-        <div className="container my-5" style={{ backgroundColor: 'white', position: 'relative' }}>
-            <h2 className="mb-4" onClick={handleNewArrivalsClick} style={{ cursor: 'pointer' }}>
-                New Arrivals
-            </h2>
+        <div className="container my-5" style={{ background: "linear-gradient(to right, #ccdcf1,#091b33)", position: 'relative'}}>
+            <h2
+    className="mb-4"
+    onClick={handleNewArrivalsClick}
+    style={{
+        cursor: 'pointer',
+        fontFamily: "'Poppins', sans-serif", // Modern font
+        fontWeight: '600',
+        fontSize: '2rem',
+        // background: 'linear-gradient(to right, #ff7e5f,rgb(10, 16, 25))', // Gradient text
+        WebkitBackgroundClip: 'text',
+         
+        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)', // Subtle shadow
+        transition: 'transform 0.3s ease, text-shadow 0.3s ease', // Smooth animation
+    }}
+    onMouseEnter={(e) => {
+        e.target.style.transform = 'scale(1.05)'; // Slight zoom on hover
+        e.target.style.textShadow = '2px 2px 6px rgba(0, 0, 0, 0.2)'; // Stronger shadow on hover
+    }}
+    onMouseLeave={(e) => {
+        e.target.style.transform = 'scale(1)'; // Reset zoom
+        e.target.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.1)'; // Reset shadow
+    }}
+>
+    New Arrivals
+</h2>
+
 
 
             {/* Custom Arrow Navigation */}
@@ -152,7 +175,7 @@ const NewArrivalProductList = () => {
                                 onClick={() => handleProductClick(product.id)}
                                 style={{
                                     cursor: 'pointer',
-                                    borderRadius: '0',
+                                    borderRadius: '10px',
                                     height: 'auto',
                                     overflow: 'hidden',
                                     width: '170px',
@@ -215,10 +238,10 @@ const NewArrivalProductList = () => {
                                     }}>
                                         ₹{firstVariant ? firstVariant.price : 'N/A'}
                                     </span>
-                                    <div className="d-flex justify-content-between">
+                                    {/* <div className="d-flex justify-content-between">
                                         <button className="btn btn-outline-primary btn-sm">Wishlist</button>
                                         <button className="btn btn-outline-secondary btn-sm">Compare</button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

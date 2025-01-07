@@ -5,7 +5,7 @@ import axios from 'axios';
 const AddProductForm = ({ onCancel, fetchProducts,categories, subcategories, subsubcategories }) => {
     const [product, setProduct] = useState({
         name: '',
-        productCode: '',
+        // productCode: '',
         price: 0,
         taxAmount: 0,
         hsnCode: '',
@@ -77,10 +77,10 @@ const AddProductForm = ({ onCancel, fetchProducts,categories, subcategories, sub
                 <label>Name:</label>
                 <input type="text" name="name" value={product.name} onChange={handleChange} required />
             </div>
-            <div>
+            {/* <div>
                 <label>Product Code:</label>
                 <input type="text" name="productCode" value={product.productCode} onChange={handleChange} required />
-            </div>
+            </div> */}
             <div>
     <label>New Arrival:</label>
     <input

@@ -1,62 +1,103 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const CustomerProductList = () => {
+const SubcategoryWithSubcategories = () => {
+    const [selectedSubcategory, setSelectedSubcategory] = useState(null);
     const [products, setProducts] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [sortOrder, setSortOrder] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
     const navigate = useNavigate();
-    const { categoryId, subcategoryId, subsubcategoryId } = useParams();
 
     useEffect(() => {
-        fetchProducts();
-    }, [subcategoryId, subsubcategoryId]); // Re-fetch products when subsubcategoryId or subcategoryId changes
+        axios
+            .get("http://localhost:8080/api/selected-category2/details-with-subcategories")
+            .then((response) => {
+                const { subcategoryId, subcategoryName, subcategoryImage, products } = response.data;
+                setSelectedSubcategory({ subcategoryId, subcategoryName, subcategoryImage });
+                setProducts(products);
+            })
+            .catch((error) => console.error("Error fetching subcategory details:", error));
+    }, []);
 
-    const fetchProducts = async () => {
-        try {
-            const params = {};
-            if (subcategoryId) params.subcategoryId = subcategoryId;
-            if (subsubcategoryId) params.subsubcategoryId = subsubcategoryId;
+    const handleSortChange = (e) => setSortOrder(e.target.value);
+    const handleMinPriceChange = (e) => setMinPrice(e.target.value);
+    const handleMaxPriceChange = (e) => setMaxPrice(e.target.value);
 
-            const response = await axios.get('http://localhost:8080/api/products/filter', { params });
-            console.log('Fetched products:', response.data);
-            setProducts(response.data);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
+    const filteredProducts = products.filter((product) => {
+        const price = product.variants?.[0]?.price || 0;
+        return (
+            (minPrice ? price >= minPrice : true) &&
+            (maxPrice ? price <= maxPrice : true)
+        );
+    });
 
-    // Filter products based on search term
-    const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        const priceA = a.variants?.[0]?.price || 0;
+        const priceB = b.variants?.[0]?.price || 0;
+        return sortOrder === "asc" ? priceA - priceB : sortOrder === "desc" ? priceB - priceA : 0;
+    });
 
-    const handleProductClick = (productId) => {
-        navigate(`/product/${productId}/category/${categoryId}/subcategory/${subcategoryId}`);
-    };
+    const handleProductClick = (productId) => navigate(`/product/details/${productId}`);
 
     return (
-        <div className="container my-5" style={{ backgroundColor: 'white', color: 'white', minHeight: '100vh' }}>
-            <button onClick={() => navigate(-1)} className="btn btn-secondary mb-3" style={{marginBottom:'0px'}}>
-                &larr; Back
-            </button>
+        <div className="container my-5" style={{ minHeight: "70vh", backgroundColor: "white" }}>
+    
 
-            <h2 className="mb-4">Available Products</h2>
+            {selectedSubcategory && (
+                <div className="text-center mb-4">
+                    <h1>{selectedSubcategory.subcategoryName}</h1>
+                    {selectedSubcategory.subcategoryImage && (
+                        <img
+                            src={`data:image/jpeg;base64,${selectedSubcategory.subcategoryImage}`}
+                            alt={selectedSubcategory.subcategoryName}
+                            className="rounded-circle"
+                            style={{ width: "200px", height: "200px", objectFit: "cover" }}
+                        />
+                    )}
+                </div>
+            )}
 
-            <div className="mb-4">
-                <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="form-control"
-                />
+            <div className="mb-3" style={{ maxWidth: "300px" }}>
+                <label htmlFor="sortOrder" className="form-label">Sort by Price</label>
+                <select
+                    id="sortOrder"
+                    className="form-select"
+                    onChange={handleSortChange}
+                    value={sortOrder}
+                >
+                    <option value="">Sort by price</option>
+                    <option value="asc">Price: Low to High</option>
+                    <option value="desc">Price: High to Low</option>
+                </select>
             </div>
 
-            {/* Updated responsive grid */}
+            <div className="mb-3" style={{ maxWidth: "300px" }}>
+                <label htmlFor="priceRange" className="form-label">Price Range</label>
+                <div className="d-flex justify-content-between">
+                    <input
+                        type="number"
+                        className="form-control"
+                        value={minPrice}
+                        onChange={handleMinPriceChange}
+                        placeholder="Min Price"
+                        style={{ width: "48%" }}
+                    />
+                    <input
+                        type="number"
+                        className="form-control"
+                        value={maxPrice}
+                        onChange={handleMaxPriceChange}
+                        placeholder="Max Price"
+                        style={{ width: "48%" }}
+                    />
+                </div>
+            </div>
+
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gx-3 gy-3">
-                {filteredProducts.length > 0 ? (
-                    filteredProducts.map((product) => {
+                {sortedProducts.length > 0 ? (
+                    sortedProducts.map((product) => {
                         const firstVariant = product.variants && product.variants[0];
 
                         return (
@@ -146,29 +187,28 @@ const CustomerProductList = () => {
                     })
                 ) : (
                     <div className="col-12">
-                        <p>No products found for this category.</p>
+                        <p>No products found for this subcategory.</p>
                     </div>
                 )}
             </div>
 
             {/* Custom media query for widths between 430px and 575px */}
-            <style >{`
-                    @media (min-width: 360px) and (max-width: 575px) {
-                        .row {
-                            display: grid;
-                            grid-template-columns: repeat(2, 1fr);
-                            gap: 0rem;
-                        }
+            <style>{`
+                @media (min-width: 360px) and (max-width: 575px) {
+                    .row {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 0rem;
                     }
-                        
-    /* Adjust font size of dropdown options */
-    .form-select option {
-    width: 25vw;
-        font-size: 2.3vw; /* Dynamically resize font size based on screen width */
-    }
-                `}</style>
+                }
+
+                .form-select option {
+                    width: 25vw;
+                    font-size: 2.3vw;
+                }
+            `}</style>
         </div>
     );
 };
 
-export default CustomerProductList;
+export default SubcategoryWithSubcategories;

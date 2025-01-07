@@ -13,6 +13,7 @@ const ProductList = () => {
     const [isAdding, setIsAdding] = useState(false);
     const [isAddingVariant, setIsAddingVariant] = useState(false);
     const [variantDetails, setVariantDetails] = useState({
+        productCode:'',
         color: '',
         dimensions: '',
         price: '',
@@ -137,6 +138,7 @@ const ProductList = () => {
     };
     const handleEditVariant = (variant) => {
         setVariantDetails({
+            productCode:variant.productCode,
             color: variant.color,
             dimensions: variant.dimensions,
             price: variant.price,
@@ -159,6 +161,7 @@ const ProductList = () => {
     
     const updateVariant = async (productId) => {
         const {
+            productCode,
             color,
             dimensions,
             price,
@@ -181,6 +184,7 @@ const ProductList = () => {
         });
     
         // Append other variant details to formData
+        formData.append('productCode', productCode);
         formData.append('color', color);
         formData.append('dimensions', dimensions);
         formData.append('price', parseFloat(price));
@@ -210,6 +214,7 @@ const ProductList = () => {
                 fetchVariants(productId); // Reload variants
                 setIsEditingVariant(false); // Close edit form
                 setVariantDetails({
+                    productCode:'',
                     color: '',
                     dimensions: '',
                     price: '',
@@ -237,6 +242,7 @@ const ProductList = () => {
     
     const handleCancelEditVariant = () => {
         setVariantDetails({
+            // productCode:'',
             color: '',
             dimensions: '',
             price: '',
@@ -270,6 +276,7 @@ const ProductList = () => {
 
     const addVariant = async (productId) => {
         const {
+            productCode,
             color,
             dimensions,
             price,
@@ -293,6 +300,7 @@ const ProductList = () => {
         });
     
         // Append other variant details to FormData
+        formData.append('productCode', productCode);
         formData.append('color', color);
         formData.append('dimensions', dimensions);
         formData.append('price', parseFloat(price));
@@ -318,6 +326,7 @@ const ProductList = () => {
                 alert('Variant added successfully');
                 fetchProducts(); // Refresh the product list to show the new variant
                 setVariantDetails({
+                    productCode:'',
                     color: '',
                     dimensions: '',
                     price: '',
@@ -426,6 +435,19 @@ const ProductList = () => {
 {isAddingVariant && currentProduct && (
     <div className="variant-form p-4 border rounded shadow-sm">
         <h3 className="mb-4">Add Variant</h3>
+        <div className="mb-3">
+            <label htmlFor="productCode" className="form-label">productCode</label>
+            <input
+                type="text"
+                name="productCode"
+                id="productCode"
+                className="form-control"
+                placeholder="Productcode"
+                value={variantDetails.productCode}
+                onChange={handleVariantChange}
+            />
+        </div>
+
         
         <div className="mb-3">
             <label htmlFor="color" className="form-label">Color</label>
@@ -618,6 +640,19 @@ const ProductList = () => {
         <h3 className="mb-4">Edit Variant</h3>
 
         <div className="mb-3">
+            <label htmlFor="productCode" className="form-label">ProductCode</label>
+            <input
+                type="text"
+                name="productCode"
+                id="productCode"
+                className="form-control"
+                value={variantDetails.productCode}
+                onChange={handleVariantChange}
+                placeholder="productCode"
+            />
+        </div>
+
+        <div className="mb-3">
             <label htmlFor="color" className="form-label">Color</label>
             <input
                 type="text"
@@ -760,7 +795,7 @@ const ProductList = () => {
                     <tr className="product-table-header">
                         {/* <th>Image</th> */}
                         <th>Name</th>
-                        <th>Code</th>
+                        {/* <th>Code</th> */}
                         {/* <th>Price</th> */}
                         <th>Tax</th>
                         <th>HSN</th>
@@ -791,7 +826,7 @@ const ProductList = () => {
                                 )}
                             </td> */}
                             <td>{product.name}</td>
-                            <td>{product.productCode}</td>
+                            {/* <td>{product.productCode}</td> */}
                             {/* <td>₹{product.price}</td> */}
                             <td>₹{product.taxAmount}</td>
                             <td>{product.hsnCode}</td>
@@ -825,6 +860,8 @@ const ProductList = () => {
         <table className="variant-table">
             <thead>
                 <tr>
+                <th>Code</th> 
+                
                     <th>Color</th>
                     <th>Dimensions</th>
                     <th>Price</th>
@@ -845,6 +882,7 @@ const ProductList = () => {
             <tbody>
                 {variants.map((variant) => (
                     <tr key={variant.id}>
+                        <td>{variant.productCode}</td>
                         <td>{variant.color}</td>
                         <td>{variant.dimensions}</td>
                         <td>{variant.price}</td>
