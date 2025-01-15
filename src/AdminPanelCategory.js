@@ -357,7 +357,7 @@ const ProductFilter = () => {
                         className="btn btn-primary mx-2"
                         onClick={() => setVisibleCount((prev) => prev + 4)}
                     >
-                        Show More
+                        More
                     </button>
                 )}
                 {visibleCount > 4 && (
@@ -365,7 +365,7 @@ const ProductFilter = () => {
                         className="btn btn-secondary mx-2"
                         onClick={() => setVisibleCount(4)}
                     >
-                        Show Less
+                        Less
                     </button>
                 )}
             </div>

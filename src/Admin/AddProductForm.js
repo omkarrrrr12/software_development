@@ -24,6 +24,7 @@ const AddProductForm = ({ onCancel, fetchProducts,categories, subcategories, sub
         subcategoryId: null,
         subsubcategoryId: null,// Keep subsubcategoryId as null by default
         isNewArrival: false,  // Added isNewArrival field
+        isMostSelling:false,
     });
 
     
@@ -91,6 +92,17 @@ const AddProductForm = ({ onCancel, fetchProducts,categories, subcategories, sub
     />
     <span>Mark as New Arrival</span>
 </div>
+<div>
+    <label>Most Selling:</label>
+    <input
+        type="checkbox"
+        name="isMostSelling"
+        checked={product.isMostSelling}
+        onChange={handleChange} // Toggles the isNewArrival state
+    />
+    <span>Mark as Most Selling</span>
+</div>
+
             <div>
                 <label>Tax Amount:</label>
                 <input type="number" name="taxAmount" value={product.taxAmount || ''} onChange={handleChange} required />

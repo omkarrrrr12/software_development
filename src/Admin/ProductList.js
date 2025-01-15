@@ -808,6 +808,7 @@ const ProductList = () => {
                         <th>Subcategory</th>
                         <th>Subsubcategory</th>
                         <th>New Arrivals</th>
+                        <th>Most Selling</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -844,6 +845,13 @@ const ProductList = () => {
                     <span className="new-arrival">New Arrival</span>
                 ) : (
                     <span className="not-new-arrival">Not New Arrival</span>
+                )}
+            </td>
+            <td>
+                {product.mostSelling ? (
+                    <span className="most-selling">Most Selling </span>
+                ) : (
+                    <span className="not-">Normal</span>
                 )}
             </td>
 

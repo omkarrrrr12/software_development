@@ -22,7 +22,8 @@ const UpdateProductForm = ({ productData, onCancel, fetchProducts, categories,su
         categoryId:null,
         subcategoryId: null,
         subsubcategoryId: null,
-        isNewArrival: false  // Add isNewArrival to state
+        isNewArrival: false ,// Add isNewArrival to state
+        isMostSelling:false
     });
 
     const [selectedImages, setSelectedImages] = useState([]);
@@ -36,7 +37,8 @@ const UpdateProductForm = ({ productData, onCancel, fetchProducts, categories,su
                 categoryId:productData.categoryId || null,
                 subcategoryId: productData.subcategoryId || null,
                 subsubcategoryId: productData.subsubcategoryId || null,
-                isNewArrival: productData.isNewArrival || false  // Ensure isNewArrival value is preserved
+                isNewArrival: productData.isNewArrival || false ,
+                isMostSelling: productData.isMostSelling || false  // Ensure isNewArrival value is preserved
             });
             setSelectedImages([]); 
             setExistingImages(productData.images || []); 
@@ -232,6 +234,17 @@ const UpdateProductForm = ({ productData, onCancel, fetchProducts, categories,su
                     <span>Mark as new arrival</span>
                 </div>
 
+                <div className="mb-3">
+                    <label htmlFor="isMostSelling" className="form-label">Most Selling</label>
+                    <input
+                        type="checkbox"
+                        id="isMostSelling"
+                        name="isMostSelling"
+                        checked={product.isMostSelling}
+                        onChange={handleChange} // Toggling the checkbox state
+                    />
+                    <span>Mark as Most Selling</span>
+                </div>
              
 
                

@@ -15,6 +15,7 @@ import ProductDisplay from './CategoryProducts';
 import CategoryWithSubcategories from './CategoryWithSubcategories';
 import SubcategoryWithSubcategories from './subcategoryselected';
 // import Breadcrumb from './Breadcrumb';
+import MostSellingProductList from './MostSelling';
 import './App.css';
 
 const App = () => {
@@ -31,8 +32,9 @@ const App = () => {
                         <>
                              
                             <TopCategories />
-                            <NewArrivalProductList /> {/* New Arrivals rendered below Top Categories */}
+                            <MostSellingProductList/>
                             <ProductFilter />
+                            <NewArrivalProductList /> {/* New Arrivals rendered below Top Categories */}
                             <ProductDisplay/>
                             <CategoryWithSubcategories/>
                             <SubcategoryWithSubcategories/>
@@ -41,6 +43,7 @@ const App = () => {
                 />
                 <Route path="/subsubcategories/:subcategoryId" element={<SubsubcategoryPage />} />
                 <Route path="/products/subcategory/:subcategoryId" element={<CustomerProductList />} />
+                <Route path="/product/productId/category/:categoryId/subcategory/:subcategoryId" element={<ProductDetails />} />
                 <Route path="/product" element={<CustomerSearchProductList />} />
 
                 <Route path="/new-arrivals" element={<AllNewArrivals />} />

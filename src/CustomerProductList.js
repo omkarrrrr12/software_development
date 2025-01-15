@@ -32,7 +32,7 @@ const CustomerProductList = () => {
     );
 
     const handleProductClick = (productId) => {
-        navigate(`/product/${productId}/category/${categoryId}/subcategory/${subcategoryId}`);
+        navigate(`/product/${productId}`);
     };
 
     return (

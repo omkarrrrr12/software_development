@@ -39,7 +39,9 @@ const SubcategoryWithSubcategories = () => {
         return sortOrder === "asc" ? priceA - priceB : sortOrder === "desc" ? priceB - priceA : 0;
     });
 
-    const handleProductClick = (productId) => navigate(`/product/details/${productId}`);
+    const handleProductClick = (productId) => {
+        navigate(`/product/${productId}`);
+    };
 
     return (
         <div className="container my-5" style={{ minHeight: "70vh", backgroundColor: "white" }}>
