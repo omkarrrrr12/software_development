@@ -4,8 +4,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 /* Global body settings */
-body {
-    font-family: 'Lato', sans-serif;
+html,body {
+    height: 10%;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background-color:white; /* Light gray background to match Amazon */
@@ -14,14 +15,14 @@ body {
 
 /* Headings with clean and bold look */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700; /* Bold for better emphasis on headings */
     margin-bottom: 10px; /* Space below headings */
 }
 
 /* Paragraph settings for readability */
 p {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     line-height: 1.6; /* Line height to make the text more readable */
     margin-bottom: 10px; /* Space between paragraphs */
@@ -29,7 +30,7 @@ p {
 
 /* Links styling similar to Amazon's link styling */
 a {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Popins', sans-serif;
     text-decoration: none;
     color: #0066c0; /* Amazon-style blue for links */
     font-weight: 400;
@@ -44,12 +45,12 @@ a:hover {
 
 /* Subtle styling for lists and list items */
 ul, ol {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Popins', sans-serif;
     padding-left: 20px;
 }
 
 li {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Popins', sans-serif;
     margin-bottom: 8px; /* Space between list items */
     font-size: 14px; /* Same font size as used in Amazon's lists */
 }
@@ -59,7 +60,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 textarea {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Popins', sans-serif;
     font-size: 14px;
     padding: 10px;
     margin-bottom: 15px;

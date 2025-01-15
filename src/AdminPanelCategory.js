@@ -174,60 +174,73 @@ const ProductFilter = () => {
                         style={{ width: '100%' }}
                     />
                 </div>
-                {/* Sort Dropdown */}
-                <select
-                        value={sortOrder}
-                        onChange={handleSortChange}
-                        className="form-select mb-3"
-                        style={{ maxWidth: '250px', flex: 1 }}
-                    >
-                        <option value="">Sort by</option>
-                        <option value="low-to-high">Price: Low to High</option>
-                        <option value="high-to-low">Price: High to Low</option>
-                    </select>
+                <div className="d-flex justify-content-between flex-wrap" style={{ display: 'flex', flexWrap: 'wrap' }}>
+    {/* Sort Dropdown */}
+    <select
+        value={sortOrder}
+        onChange={handleSortChange}
+        className="form-select mb-3"
+        style={{ maxWidth: '250px', flex: 1 }}
+    >
+        <option value="">Sort by</option>
+        <option value="low-to-high">Price: Low to High</option>
+        <option value="high-to-low">Price: High to Low</option>
+    </select>
 
-                {/* Filters Row */}
-                <div className="d-flex justify-content-between flex-wrap">
-                     
-                    {/* Category Dropdown */}
-                    <select
-                        value={selectedCategory}
-                        onChange={handleCategoryChange}
-                        className="form-select mb-3"
-                        style={{ maxWidth: '250px', flex: 1 }}
-                    >
-                        <option value="">All Categories</option>
-                        {loading ? (
-                            <option>Loading categories...</option>
-                        ) : (
-                            categories.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))
-                        )}
-                    </select>
-                    {/* Category Dropdown */}
-                    <select
-                        value={selectedSubcategory}
-                        onChange={handleSubcategoryChange}
-                        className="form-select mb-3"
-                        style={{ maxWidth: '250px', flex: 1 }}
-                    >
-                        <option value="">All Subcategories</option>
-                        {loading ? (
-                            <option>Loading subcategories...</option>
-                        ) : (
-                            subcategories.map((subcategory) => (
-                                <option key={subcategory.id} value={subcategory.id}>
-                                    {subcategory.name}
-                                </option>
-                            ))
-                        )}
-                    </select>
+    {/* Category Dropdown */}
+    <select
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+        className="form-select mb-3"
+        style={{ maxWidth: '250px', flex: 1 }}
+    >
+        <option value="">Categories</option>
+        {loading ? (
+            <option>Loading categories...</option>
+        ) : (
+            categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                    {category.name}
+                </option>
+            ))
+        )}
+    </select>
 
-                   
-                </div>
+    {/* Subcategory Dropdown */}
+    <select
+        value={selectedSubcategory}
+        onChange={handleSubcategoryChange}
+        className="form-select mb-3"
+        style={{ maxWidth: '250px', flex: 1 }}
+    >
+        <option value="">Subcategories</option>
+        {loading ? (
+            <option>Loading subcategories...</option>
+        ) : (
+            subcategories.map((subcategory) => (
+                <option key={subcategory.id} value={subcategory.id}>
+                    {subcategory.name}
+                </option>
+            ))
+        )}
+    </select>
+
+    {/* Inline styles for responsiveness */}
+    <style>
+        {`
+            @media (max-width: 470px) {
+                .d-flex {
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+                .d-flex .form-select {
+                    width: 100%;
+                }
+            }
+        `}
+    </style>
+</div>
+
             </div>
 
             {/* Product Grid */}

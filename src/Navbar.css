@@ -8,3 +8,27 @@
         font-size: 20px; /* This can be adjusted for the hamburger icon */
     }
 }
+/* Navbar.css */
+.subcategory-list {
+    flex-grow: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    min-width: 200px;
+}
+
+.category-image {
+    flex-shrink: 0;
+    margin-left: 10px;
+    min-width: 120px;
+}
+
+@media (max-width: 576px) {
+    .dropdown-menu {
+        width: 100%;
+        padding: 0;
+    }
+
+    .subcategory-list, .category-image {
+        width: 100%;
+    }
+}

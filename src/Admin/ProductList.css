@@ -27,7 +27,7 @@ body {
 }
 
 .product-table-header {
-    background: linear-gradient(135deg, #487bb1, #052c56); /* Gradient for header */
+    background: linear-gradient(135deg, #487bb1, #0d1c2c); /* Gradient for header */
     color: #ffffff; /* White text for better contrast */
     font-weight: bold;
 }

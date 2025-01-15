@@ -38,7 +38,7 @@ function SubsubcategoryPage() {
                 &larr; Back
             </button>
 
-            <h2 className="mb-4">Select a Subsubcategory</h2>
+            {/* <h2 className="mb-4">Select a Subsubcategory</h2> */}
 
             {/* Display the list of subsubcategories */}
             <div className="row g-3"> {/* Adjusted gutter spacing */}
